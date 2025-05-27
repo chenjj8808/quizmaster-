@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuizMaster</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">QuizMaster</div>
+    <nav>
+      <a href="login.html" class="btn" id="loginBtn">Login</a>
+      <a href="signup.html" class="btn">Sign Up</a>
+    </nav>
+  </header>
+  <section class="main-section">
+    <h1 id="welcomeMessage">Welcome to QuizMaster</h1>
+    <p>Challenge your brain with fun quizzes and climb the global leaderboard!</p>
+    <p>Accessible anytime, anywhere, on any device.</p>
+  </section>
+  <script>
+    window.onload = () => {
+  if (localStorage.getItem("username")) {
+   
+    window.location.href = "quiz.html";
+  }
+};
+  </script>
+</body>
+</html>
