@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Start Quiz | QuizMaster</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="logo" id="logoLink">QuizMaster</a>
+  <div class="right-box">
+    <span class="username">Welcome, <span id="usernameDisplay"></span></span>
+    <a href="leaderboard.html">Leaderboard</a>
+
+    <button id="signOutBtn" class="btn">Sign Out</button>
+  </div>
+  </header>
+
+  <main class="form-container">
+    <h2>Start New Quiz</h2>
+
+    <label for="category">Select Category</label>
+    <select id="category">
+      <option value="9">General Knowledge</option>
+    </select>
+
+    <label>Select Difficulty</label>
+    <div class="difficulty-buttons">
+      <button class="difficulty-btn" data-difficulty="easy">Easy</button>
+      <button class="difficulty-btn" data-difficulty="medium">Medium</button>
+      <button class="difficulty-btn" data-difficulty="hard">Hard</button>
+    </div>
+
+    <button id="startQuizBtn">Start Quiz</button>
+  </main>
+
+  <script>
+    const username = localStorage.getItem("username");
+    if (!username) {
+      window.location.href = "login.html";
+    } else {
+      document.getElementById("usernameDisplay").textContent = username;
+    }
+
+    // Prevent navigating back if logged in
+    document.getElementById("logoLink").addEventListener("click", (e) => {
+      if (localStorage.getItem("username")) {
+        e.preventDefault();
+        alert("Please sign out before returning to home.");
+      }
+    });
+
+    // Sign out logic
+    document.getElementById("signOutBtn").addEventListener("click", () => {
+      localStorage.clear();
+      window.location.href = "index.html";
+    });
+
+    // Difficulty selection
+    let selectedDifficulty = "";
+    document.querySelectorAll(".difficulty-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".difficulty-btn").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedDifficulty = btn.dataset.difficulty;
+      });
+    });
+
+    // Start quiz
+    document.getElementById("startQuizBtn").addEventListener("click", () => {
+      const category = document.getElementById("category").value;
+      if (!selectedDifficulty) {
+        alert("Please select a difficulty.");
+        return;
+      }
+
+      localStorage.setItem("quiz_category", category);
+      localStorage.setItem("quiz_difficulty", selectedDifficulty);
+      window.location.href = "quiz-play.html";
+    });
+  </script>
+</body>
+</html>
