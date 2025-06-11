@@ -1,3 +1,4 @@
+// Import required modules
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
@@ -6,6 +7,7 @@ const path = require('path');
 const app = express();
 const PORT = 3006;
 
+// Connect to MongoDB
 mongoose.connect('mongodb+srv://kleung36:FNSzSQqredv1cof5@cluster0.ejnstds.mongodb.net/quizmaster?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -13,6 +15,7 @@ mongoose.connect('mongodb+srv://kleung36:FNSzSQqredv1cof5@cluster0.ejnstds.mongo
 .then(() => console.log(' MongoDB connected'))
 .catch(err => console.error('MongoDB connection error:', err));
 
+// Define User model schema
 const User = mongoose.model('User', new mongoose.Schema({
   username: String,
   email: { type: String, unique: true },
@@ -32,19 +35,22 @@ const User = mongoose.model('User', new mongoose.Schema({
   ]
 }));
 
+// Middleware setup
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'frontend')));
 
+// Serve home page
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'index.html'));
 });
 
-
+// Serve signup page
 app.get('/signup', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'signup.html'));
 });
 
+// Handle user registration
 app.post('/api/signup', async (req, res) => {
   const { username, email, password } = req.body;
 
@@ -64,7 +70,7 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-
+// Handle user login
 app.post('/api/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -92,6 +98,7 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+// Fetch user profile by email
 app.get('/api/user', async (req, res) => {
   const { email } = req.query;
   try {
@@ -112,6 +119,8 @@ app.get('/api/user', async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// Fetch leaderboard 
 app.get('/api/leaderboard', async (req, res) => {
   try {
     const users = await User.find({}).sort({ points: -1 });
@@ -120,6 +129,7 @@ app.get('/api/leaderboard', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch leaderboard' });
   }
 });
+// Submit quiz score and update user stats
 app.post('/api/submit-score', async (req, res) => {
   const { email, score, correct, wrong, timeUsed } = req.body;
 
