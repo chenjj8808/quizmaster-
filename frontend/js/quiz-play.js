@@ -8,6 +8,8 @@ let timeUsed = 0;
 
 const category = localStorage.getItem("quiz_category") || "9";
 const difficulty = localStorage.getItem("quiz_difficulty") || "easy";
+const user = JSON.parse(localStorage.getItem("quizUser")); 
+
 
 async function fetchQuestions() {
   const url = `https://opentdb.com/api.php?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`;
@@ -73,6 +75,25 @@ function showResults() {
   document.getElementById("correct-count").innerText = correct;
   document.getElementById("wrong-count").innerText = wrong;
   document.getElementById("time-used").innerText = formatTime(timeUsed);
+
+  if (user && user.email) {
+    fetch("/api/submit-score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: user.email,
+        score: correct,
+        correct,
+        wrong,
+        timeUsed
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log(" Score submitted:", data))
+    .catch(err => console.error("Submit error:", err));
+  } else {
+    console.warn("⚠️ No user email found. Score not submitted.");
+  }
 }
 
 function startTimer() {

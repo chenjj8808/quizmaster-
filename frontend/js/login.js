@@ -1,4 +1,4 @@
-console.log("✅ login.js is loaded");
+console.log("login.js is loaded");
 
 document.getElementById("loginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -6,12 +6,12 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   const password = document.getElementById("password").value;
 
   if (!email || !password) {
-    alert("❌ Please fill in both email and password");
+    alert("Please fill in both email and password");
     return;
   }
 
   try {
-    const res = await fetch("http://localhost:3001/api/login", {
+    const res = await fetch("/api/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
@@ -19,11 +19,14 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
 
     const data = await res.json();
     if (data.success) {
-      localStorage.setItem('username', data.username); // Store username
-      alert("✅ Welcome, " + data.username + "");
+      localStorage.setItem("username", data.user.username); 
+      localStorage.setItem("quizUser", JSON.stringify(data.user)); 
+
+
+      alert("Welcome, " + data.user.username);
       window.location.href = "quiz.html";
     } else {
-      alert("❌ Login failed: " + data.message);
+      alert("Login failed: " + data.message);
     }
   } catch (err) {
     console.error("Login error:", err);
