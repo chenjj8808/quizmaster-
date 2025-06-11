@@ -1,16 +1,14 @@
-console.log("✅ signup.js is loaded");
+console.log("signup.js is loaded");
 
 document.getElementById("signupForm").addEventListener("submit", async (e) => {
-  e.preventDefault(); // Prevent page refresh
+  e.preventDefault(); 
 
-  // Get form values
   const username = document.getElementById("username").value;
   const email    = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
   try {
-    // Send POST request to backend
-    const res = await fetch("http://localhost:3001/api/signup", {
+    const res = await fetch("/api/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, email, password })
@@ -19,10 +17,19 @@ document.getElementById("signupForm").addEventListener("submit", async (e) => {
     const data = await res.json();
 
     if (data.success) {
-      alert("✅ Registration successful!");
+      localStorage.setItem("quizUser", JSON.stringify({
+        username,
+        email,
+        joinedAt: new Date().toISOString(),
+        rank: "#0",
+        points: 0,
+        quizzes: 0
+      }));
+
+      alert("Registration successful!");
       window.location.href = "login.html";
     } else {
-      alert("❌ Registration failed: " + data.message);
+      alert("Registration failed: " + data.message);
     }
   } catch (err) {
     console.error("Signup error:", err);

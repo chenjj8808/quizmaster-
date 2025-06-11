@@ -8,12 +8,11 @@
 <body>
   <header class="header">
     <a href="index.html" class="logo" id="logoLink">QuizMaster</a>
-  <div class="right-box">
-    <span class="username">Welcome, <span id="usernameDisplay"></span></span>
-    <a href="leaderboard.html">Leaderboard</a>
-
-    <button id="signOutBtn" class="btn">Sign Out</button>
-  </div>
+    <div class="right-box">
+      <span class="username">Welcome, <span id="usernameDisplay"></span></span>
+      <a href="leaderboard.html">Leaderboard</a>
+      <button id="signOutBtn" class="btn">Sign Out</button>
+    </div>
   </header>
 
   <main class="form-container">
@@ -42,7 +41,6 @@
       document.getElementById("usernameDisplay").textContent = username;
     }
 
-    // Prevent navigating back if logged in
     document.getElementById("logoLink").addEventListener("click", (e) => {
       if (localStorage.getItem("username")) {
         e.preventDefault();
@@ -50,13 +48,11 @@
       }
     });
 
-    // Sign out logic
     document.getElementById("signOutBtn").addEventListener("click", () => {
       localStorage.clear();
       window.location.href = "index.html";
     });
 
-    // Difficulty selection
     let selectedDifficulty = "";
     document.querySelectorAll(".difficulty-btn").forEach(btn => {
       btn.addEventListener("click", () => {
@@ -66,14 +62,12 @@
       });
     });
 
-    // Start quiz
     document.getElementById("startQuizBtn").addEventListener("click", () => {
       const category = document.getElementById("category").value;
       if (!selectedDifficulty) {
         alert("Please select a difficulty.");
         return;
       }
-
       localStorage.setItem("quiz_category", category);
       localStorage.setItem("quiz_difficulty", selectedDifficulty);
       window.location.href = "quiz-play.html";

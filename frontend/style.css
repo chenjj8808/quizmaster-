@@ -210,13 +210,7 @@ select, button {
 }
 
 
-
-
-
 /*leaderboard styles*/
-
-
-
 .leaderboard-container {
   display: flex;
   justify-content: center;
@@ -289,8 +283,20 @@ select, button {
   margin-top: 20px;
 }
 
-
-
 .dashboard, .leaderboard{
   color: black;
+}
+
+.under-button{
+  width: 100%;
+  margin-top: 10px; 
+  padding: 10px;
+  font-size: 16px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  text-align: center;
 }
