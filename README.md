@@ -5,22 +5,22 @@ Users can register, log in, select quiz difficulty, answer timed multiple-choice
 
 # Project Structure
 QuizMaster/
-├── server.js # Backend API (Express.js)
-├── .gitignore
-├── frontend/
-│ ├── index.html # Home page
-│ ├── signup.html # Signup page
-│ ├── login.html # Login page
-│ ├── quiz.html # Quiz setup
-│ ├── quiz-play.html # Quiz interface
-│ ├── leaderboard.html # Leaderboard
-│ ├── style.css # App styling
-│ ├── js/
-│ │ ├── login.js # Handles login logic
-│ │ ├── signup.js # Handles signup logic
-│ │ ├── quiz-setup.js # Manages difficulty/category
-│ │ ├── quiz-play.js # Quiz logic and score submission
-│ │ └── leaderboard.js # Renders leaderboard and user info
+server.js # Backend API (Express.js)
+.gitignore
+frontend/
+index.html # Home page
+signup.html # Signup page
+login.html # Login page
+quiz.html # Quiz setup
+quiz-play.html # Quiz interface
+leaderboard.html # Leaderboard
+style.css # App styling
+js/
+ login.js # Handles login logic
+ signup.js # Handles signup logic
+ quiz-setup.js # Manages difficulty/category
+ quiz-play.js # Quiz logic and score submission
+ leaderboard.js # Renders leaderboard and user info
 
 # Technologies Used
 *Frontend*: HTML, CSS, JavaScript 
