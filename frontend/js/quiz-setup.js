@@ -1,5 +1,6 @@
+// Store the selected difficulty level (easy/medium/hard)
 let selectedDifficulty = "";
-
+// Add click event listeners to all difficulty buttons
 document.querySelectorAll(".difficulty-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".difficulty-btn").forEach(b => b.classList.remove("selected"));
@@ -7,7 +8,7 @@ document.querySelectorAll(".difficulty-btn").forEach(btn => {
     selectedDifficulty = btn.dataset.difficulty;
   });
 });
-
+// When the "Start Quiz" button is clicked
 document.getElementById("startQuizBtn").addEventListener("click", () => {
   const category = document.getElementById("category").value;
 
@@ -16,10 +17,10 @@ document.getElementById("startQuizBtn").addEventListener("click", () => {
     return;
   }
 
- 
+  // Save the chosen category and difficulty into localStorage
   localStorage.setItem("quiz_category", category);
   localStorage.setItem("quiz_difficulty", selectedDifficulty);
 
-  
+   // Redirect to the quiz play page
   window.location.href = "quiz-play.html";
 });
